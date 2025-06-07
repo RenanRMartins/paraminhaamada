@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart, Calendar, Music, Play, Pause } from 'lucide-react';
@@ -14,11 +13,21 @@ interface TimeLeft {
 }
 
 const Index = () => {
-  // Valores fixos/estáticos - mantenha seus valores personalizados aqui
-  const coupleImage = '/placeholder.svg'; // Substitua pela URL da sua foto
-  const loveMessage = 'Feliz Dia dos Namorados, meu amor! Obrigado por cada momento juntos, por cada sorriso compartilhado e por fazer cada dia mais especial. Você é meu presente mais precioso!';
-  const relationshipStart = '2020-02-14'; // Substitua pela sua data
-  const musicUrl = ''; // Substitua pela URL da sua música
+  // Valores fixos/estáticos - seus valores personalizados
+  const coupleImage = '/lovable-uploads/41ff8a8d-db89-41f0-861f-32568c02c4af.png';
+  const loveMessage = `Meu amor,
+
+Neste Dia dos Namorados, eu só consigo pensar em como sou incrivelmente sortudo por ter você ao meu lado. Você é, sem dúvida, a pessoa mais incrível que já conheci. Desde que você entrou na minha vida, tudo ficou mais leve, mais bonito, mais gostoso de viver. A vida com você tem um brilho diferente, uma paz que eu nunca tinha sentido antes.
+
+Você é a mulher mais linda do mundo — por dentro e por fora — e a forma como você ilumina tudo ao seu redor é simplesmente mágica. Você me faz o homem mais feliz que existe, e não há palavras suficientes para expressar o quanto sou grato por isso.
+
+Saber que você me escolheu para caminhar ao seu lado é algo que ainda me emociona todos os dias. Conhecer você foi, sem dúvida, a melhor coisa que já me aconteceu. E viver esse amor com você é o maior presente que a vida poderia me dar.
+
+Te amo mais do que posso explicar. Obrigado por ser você, por ser minha.
+
+Feliz Dia dos Namorados, meu amor. ❤️`;
+  const relationshipStart = '2025-05-18';
+  const musicUrl = 'https://www.youtube.com/watch?v=oOT2-OTebx0'; // Garden of Eden - Lady Gaga
   
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     years: 0,
@@ -91,24 +100,14 @@ const Index = () => {
         {/* Hero Section - Static Photo */}
         <section className="text-center mb-16">
           <div className="relative max-w-md mx-auto">
-            {coupleImage ? (
-              <div className="relative">
-                <img
-                  src={coupleImage}
-                  alt="Foto do casal"
-                  className="w-full h-80 object-cover rounded-3xl shadow-2xl border-4 border-romantic-rose/20"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-romantic-rose/20 to-transparent rounded-3xl"></div>
-              </div>
-            ) : (
-              <Card className="w-full h-80 border-2 border-romantic-rose/20 bg-romantic-pink/30">
-                <CardContent className="flex flex-col items-center justify-center h-full">
-                  <Heart className="text-romantic-rose mb-4" size={48} />
-                  <p className="text-romantic-text font-medium">Nossa Foto Especial</p>
-                  <p className="text-sm text-muted-foreground mt-2">Momentos Inesquecíveis</p>
-                </CardContent>
-              </Card>
-            )}
+            <div className="relative">
+              <img
+                src={coupleImage}
+                alt="Foto do casal"
+                className="w-full h-80 object-cover rounded-3xl shadow-2xl border-4 border-romantic-rose/20"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-romantic-rose/20 to-transparent rounded-3xl"></div>
+            </div>
           </div>
           
           <div className="mt-6">
@@ -126,9 +125,9 @@ const Index = () => {
           <Card className="bg-card/80 backdrop-blur border-romantic-rose/20 shadow-xl">
             <CardContent className="p-8">
               <div className="mt-6 p-6 bg-romantic-pink/30 rounded-2xl">
-                <p className="font-playfair text-xl md:text-2xl text-romantic-text leading-relaxed text-center">
-                  "{loveMessage}"
-                </p>
+                <div className="font-playfair text-lg md:text-xl text-romantic-text leading-relaxed whitespace-pre-line">
+                  {loveMessage}
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -190,28 +189,23 @@ const Index = () => {
                   Nossa Música
                 </h3>
                 
-                {musicUrl ? (
-                  <div className="space-y-4">
-                    <button
-                      onClick={toggleMusic}
-                      className="bg-romantic-rose hover:bg-romantic-red text-white rounded-full w-16 h-16 flex items-center justify-center transition-colors"
+                <div className="space-y-4">
+                  <div className="w-16 h-16 mx-auto bg-romantic-rose/20 rounded-full flex items-center justify-center">
+                    <Music className="text-romantic-rose" size={24} />
+                  </div>
+                  <div className="space-y-2">
+                    <p className="text-romantic-text font-medium">Garden of Eden - Lady Gaga</p>
+                    <a 
+                      href={musicUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-block bg-romantic-rose hover:bg-romantic-red text-white px-6 py-3 rounded-full transition-colors"
                     >
-                      {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-                    </button>
-                    <p className="text-sm text-romantic-text">
-                      {isPlaying ? 'Tocando nossa música...' : 'Clique para ouvir nossa música'}
-                    </p>
-                    
-                    <audio id="backgroundMusic" src={musicUrl} />
+                      <Play className="inline mr-2" size={16} />
+                      Ouvir nossa música
+                    </a>
                   </div>
-                ) : (
-                  <div className="space-y-4">
-                    <div className="w-16 h-16 mx-auto bg-romantic-rose/20 rounded-full flex items-center justify-center">
-                      <Music className="text-romantic-rose" size={24} />
-                    </div>
-                    <p className="text-romantic-text">Nossa canção especial no coração</p>
-                  </div>
-                )}
+                </div>
               </div>
             </CardContent>
           </Card>

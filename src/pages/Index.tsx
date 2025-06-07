@@ -28,7 +28,7 @@ Te amo mais do que posso explicar. Obrigado por ser você, por ser minha.
 
 Feliz Dia dos Namorados, meu amor. ❤️`;
   const relationshipStart = '2025-05-18';
-  const musicUrl = 'https://www.youtube.com/watch?v=oOT2-OTebx0'; // Garden of Eden - Lady Gaga
+  const musicUrl = 'https://www.youtube.com/watch?v=tep9uGsVzK4';
   
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     years: 0,

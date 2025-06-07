@@ -14,11 +14,11 @@ interface TimeLeft {
 }
 
 const Index = () => {
-  // Valores fixos/estáticos
-  const coupleImage = ''; // Você pode adicionar uma URL de imagem aqui se desejar
+  // Valores fixos/estáticos - mantenha seus valores personalizados aqui
+  const coupleImage = '/placeholder.svg'; // Substitua pela URL da sua foto
   const loveMessage = 'Feliz Dia dos Namorados, meu amor! Obrigado por cada momento juntos, por cada sorriso compartilhado e por fazer cada dia mais especial. Você é meu presente mais precioso!';
-  const relationshipStart = '2020-02-14';
-  const musicUrl = ''; // Você pode adicionar uma URL de música aqui se desejar
+  const relationshipStart = '2020-02-14'; // Substitua pela sua data
+  const musicUrl = ''; // Substitua pela URL da sua música
   
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     years: 0,

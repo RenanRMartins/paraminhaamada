@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Heart, Calendar, Music, Play, Pause } from 'lucide-react';
+import { Heart, Calendar } from 'lucide-react';
+import MusicPlayer from '@/components/MusicPlayer';
 
 interface TimeLeft {
   years: number;
@@ -179,37 +180,8 @@ Feliz Dia dos Namorados, meu amor. ❤️`;
           </Card>
         </section>
 
-        {/* Music Player Section - Static */}
-        <section className="max-w-2xl mx-auto mb-16">
-          <Card className="bg-card/80 backdrop-blur border-romantic-rose/20 shadow-xl">
-            <CardContent className="p-8">
-              <div className="text-center">
-                <h3 className="font-playfair text-2xl text-romantic-rose mb-6 flex items-center justify-center gap-2">
-                  <Music className="animate-float" />
-                  Nossa Música
-                </h3>
-                
-                <div className="space-y-4">
-                  <div className="w-16 h-16 mx-auto bg-romantic-rose/20 rounded-full flex items-center justify-center">
-                    <Music className="text-romantic-rose" size={24} />
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-romantic-text font-medium">Garden of Eden - Lady Gaga</p>
-                    <a 
-                      href={musicUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="inline-block bg-romantic-rose hover:bg-romantic-red text-white px-6 py-3 rounded-full transition-colors"
-                    >
-                      <Play className="inline mr-2" size={16} />
-                      Ouvir nossa música
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </section>
+        {/* Music Player Section */}
+        <MusicPlayer />
       </div>
 
       {/* Footer */}

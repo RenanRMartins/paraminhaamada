@@ -1,12 +1,7 @@
 
-import { useState, useEffect, useRef } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Play, Pause, Upload, Heart, Calendar, Music } from 'lucide-react';
-import { toast } from 'sonner';
+import { Heart, Calendar, Music, Play, Pause } from 'lucide-react';
 
 interface TimeLeft {
   years: number;
@@ -19,9 +14,12 @@ interface TimeLeft {
 }
 
 const Index = () => {
-  const [coupleImage, setCoupleImage] = useState<string>('');
-  const [loveMessage, setLoveMessage] = useState('Feliz Dia dos Namorados, meu amor! Obrigado por cada momento juntos, por cada sorriso compartilhado e por fazer cada dia mais especial. Você é meu presente mais precioso!');
-  const [relationshipStart, setRelationshipStart] = useState('2020-02-14');
+  // Valores fixos/estáticos
+  const coupleImage = ''; // Você pode adicionar uma URL de imagem aqui se desejar
+  const loveMessage = 'Feliz Dia dos Namorados, meu amor! Obrigado por cada momento juntos, por cada sorriso compartilhado e por fazer cada dia mais especial. Você é meu presente mais precioso!';
+  const relationshipStart = '2020-02-14';
+  const musicUrl = ''; // Você pode adicionar uma URL de música aqui se desejar
+  
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     years: 0,
     months: 0,
@@ -31,11 +29,7 @@ const Index = () => {
     minutes: 0,
     seconds: 0
   });
-  const [musicUrl, setMusicUrl] = useState('');
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const musicInputRef = useRef<HTMLInputElement>(null);
 
   const calculateTimeLeft = () => {
     const difference = +new Date() - +new Date(relationshipStart);
@@ -65,35 +59,15 @@ const Index = () => {
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(timer);
-  }, [relationshipStart]);
-
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setCoupleImage(e.target?.result as string);
-        toast.success('Foto carregada com sucesso! ❤️');
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleMusicUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setMusicUrl(url);
-      toast.success('Música carregada com sucesso! 🎵');
-    }
-  };
+  }, []);
 
   const toggleMusic = () => {
-    if (audioRef.current) {
+    const audio = document.getElementById('backgroundMusic') as HTMLAudioElement;
+    if (audio) {
       if (isPlaying) {
-        audioRef.current.pause();
+        audio.pause();
       } else {
-        audioRef.current.play();
+        audio.play();
       }
       setIsPlaying(!isPlaying);
     }
@@ -114,7 +88,7 @@ const Index = () => {
       </header>
 
       <div className="container mx-auto px-4 pb-12">
-        {/* Hero Section - Photo Upload */}
+        {/* Hero Section - Static Photo */}
         <section className="text-center mb-16">
           <div className="relative max-w-md mx-auto">
             {coupleImage ? (
@@ -125,58 +99,32 @@ const Index = () => {
                   className="w-full h-80 object-cover rounded-3xl shadow-2xl border-4 border-romantic-rose/20"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-romantic-rose/20 to-transparent rounded-3xl"></div>
-                <Button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="absolute bottom-4 right-4 bg-romantic-rose hover:bg-romantic-red text-white rounded-full p-3"
-                >
-                  <Upload size={20} />
-                </Button>
               </div>
             ) : (
-              <Card 
-                className="w-full h-80 border-2 border-dashed border-romantic-rose cursor-pointer hover:bg-romantic-pink/50 transition-colors"
-                onClick={() => fileInputRef.current?.click()}
-              >
+              <Card className="w-full h-80 border-2 border-romantic-rose/20 bg-romantic-pink/30">
                 <CardContent className="flex flex-col items-center justify-center h-full">
-                  <Upload className="text-romantic-rose mb-4" size={48} />
-                  <p className="text-romantic-text font-medium">Clique para adicionar nossa foto</p>
-                  <p className="text-sm text-muted-foreground mt-2">JPG, PNG até 10MB</p>
+                  <Heart className="text-romantic-rose mb-4" size={48} />
+                  <p className="text-romantic-text font-medium">Nossa Foto Especial</p>
+                  <p className="text-sm text-muted-foreground mt-2">Momentos Inesquecíveis</p>
                 </CardContent>
               </Card>
             )}
-            
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-              className="hidden"
-            />
           </div>
           
           <div className="mt-6">
-            <p className="font-playfair text-lg text-romantic-text">
-              Nosso amor desde {new Date(relationshipStart).toLocaleDateString('pt-BR')}
-            </p>
+            <div className="flex justify-center items-center gap-2">
+              <Calendar className="text-romantic-rose" size={18} />
+              <p className="font-playfair text-lg text-romantic-text">
+                Nosso amor desde {new Date(relationshipStart).toLocaleDateString('pt-BR')}
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Love Message Section */}
+        {/* Love Message Section - Static */}
         <section className="max-w-4xl mx-auto mb-16">
           <Card className="bg-card/80 backdrop-blur border-romantic-rose/20 shadow-xl">
             <CardContent className="p-8">
-              <div className="space-y-4">
-                <Label htmlFor="message" className="text-lg font-playfair text-romantic-rose">
-                  Sua Mensagem de Amor
-                </Label>
-                <Textarea
-                  id="message"
-                  value={loveMessage}
-                  onChange={(e) => setLoveMessage(e.target.value)}
-                  className="min-h-32 text-lg leading-relaxed font-inter border-romantic-rose/30 focus:border-romantic-rose resize-none"
-                  placeholder="Digite sua mensagem romântica aqui..."
-                />
-              </div>
               <div className="mt-6 p-6 bg-romantic-pink/30 rounded-2xl">
                 <p className="font-playfair text-xl md:text-2xl text-romantic-text leading-relaxed text-center">
                   "{loveMessage}"
@@ -190,24 +138,6 @@ const Index = () => {
         <section className="max-w-3xl mx-auto mb-16">
           <Card className="bg-gradient-to-br from-romantic-rose/10 to-romantic-gold/10 border-romantic-rose/20 shadow-xl">
             <CardContent className="p-8 text-center">
-              <div className="mb-6">
-                <Label htmlFor="start-date" className="text-lg font-playfair text-romantic-rose">
-                  Data de Início do Relacionamento
-                </Label>
-                <div className="flex justify-center mt-2">
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-romantic-rose" size={18} />
-                    <Input
-                      id="start-date"
-                      type="date"
-                      value={relationshipStart}
-                      onChange={(e) => setRelationshipStart(e.target.value)}
-                      className="pl-10 border-romantic-rose/30 focus:border-romantic-rose"
-                    />
-                  </div>
-                </div>
-              </div>
-              
               <h3 className="font-playfair text-3xl text-romantic-rose mb-6">
                 Tempo Juntos
               </h3>
@@ -250,66 +180,37 @@ const Index = () => {
           </Card>
         </section>
 
-        {/* Music Player Section */}
+        {/* Music Player Section - Static */}
         <section className="max-w-2xl mx-auto mb-16">
           <Card className="bg-card/80 backdrop-blur border-romantic-rose/20 shadow-xl">
             <CardContent className="p-8">
-              <div className="text-center mb-6">
-                <h3 className="font-playfair text-2xl text-romantic-rose mb-2 flex items-center justify-center gap-2">
+              <div className="text-center">
+                <h3 className="font-playfair text-2xl text-romantic-rose mb-6 flex items-center justify-center gap-2">
                   <Music className="animate-float" />
                   Nossa Música
                 </h3>
                 
-                {!musicUrl && (
+                {musicUrl ? (
                   <div className="space-y-4">
-                    <p className="text-romantic-text">Adicione a música especial do casal</p>
-                    <Button
-                      onClick={() => musicInputRef.current?.click()}
-                      className="bg-romantic-rose hover:bg-romantic-red text-white"
-                    >
-                      <Upload className="mr-2" size={18} />
-                      Escolher Música
-                    </Button>
-                  </div>
-                )}
-                
-                {musicUrl && (
-                  <div className="space-y-4">
-                    <Button
+                    <button
                       onClick={toggleMusic}
-                      className="bg-romantic-rose hover:bg-romantic-red text-white rounded-full w-16 h-16"
+                      className="bg-romantic-rose hover:bg-romantic-red text-white rounded-full w-16 h-16 flex items-center justify-center transition-colors"
                     >
                       {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-                    </Button>
+                    </button>
                     <p className="text-sm text-romantic-text">
                       {isPlaying ? 'Tocando nossa música...' : 'Clique para ouvir nossa música'}
                     </p>
-                    <Button
-                      onClick={() => musicInputRef.current?.click()}
-                      variant="outline"
-                      className="border-romantic-rose text-romantic-rose hover:bg-romantic-pink"
-                    >
-                      Trocar Música
-                    </Button>
+                    
+                    <audio id="backgroundMusic" src={musicUrl} />
                   </div>
-                )}
-                
-                <input
-                  ref={musicInputRef}
-                  type="file"
-                  accept="audio/*"
-                  onChange={handleMusicUpload}
-                  className="hidden"
-                />
-                
-                {musicUrl && (
-                  <audio
-                    ref={audioRef}
-                    src={musicUrl}
-                    onEnded={() => setIsPlaying(false)}
-                    onLoadStart={() => console.log('Carregando música...')}
-                    onCanPlay={() => console.log('Música pronta para tocar')}
-                  />
+                ) : (
+                  <div className="space-y-4">
+                    <div className="w-16 h-16 mx-auto bg-romantic-rose/20 rounded-full flex items-center justify-center">
+                      <Music className="text-romantic-rose" size={24} />
+                    </div>
+                    <p className="text-romantic-text">Nossa canção especial no coração</p>
+                  </div>
                 )}
               </div>
             </CardContent>

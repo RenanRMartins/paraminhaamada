@@ -1,20 +1,23 @@
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Music, Play, Pause, Volume2 } from 'lucide-react';
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   const toggleMusic = () => {
-    if (audioRef.current) {
+    const iframe = document.getElementById('youtubePlayer') as HTMLIFrameElement;
+    if (iframe) {
       if (isPlaying) {
-        audioRef.current.pause();
+        // Pausar música (recarregar iframe para parar)
+        iframe.src = iframe.src;
+        setIsPlaying(false);
       } else {
-        audioRef.current.play();
+        // Tocar música
+        iframe.src = "https://www.youtube.com/embed/tep9uGsVzK4?autoplay=1&loop=1&playlist=tep9uGsVzK4";
+        setIsPlaying(true);
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -38,12 +41,16 @@ const MusicPlayer = () => {
               </div>
 
               <div className="bg-romantic-pink/30 rounded-2xl p-6">
-                <audio
-                  ref={audioRef}
-                  src="https://www.soundjay.com/misc/sounds/magical_forest.mp3"
-                  onEnded={() => setIsPlaying(false)}
+                <iframe
+                  id="youtubePlayer"
+                  width="0"
+                  height="0"
+                  src=""
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
                   className="hidden"
-                />
+                ></iframe>
                 
                 <div className="flex items-center justify-center gap-4">
                   <button

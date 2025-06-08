@@ -92,27 +92,25 @@
     @apply border-border;
   }
 
-  html, body {
-    @apply bg-background text-foreground font-inter;
+  html {
     background: #fdf2f8 !important;
     min-height: 100vh;
   }
 
   body {
-    background: linear-gradient(135deg, #fdf2f8 0%, #fefcfb 50%, #fdf2f8 100%) !important;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    background-size: cover;
+    @apply bg-background text-foreground font-inter;
+    background: #fdf2f8 !important;
+    min-height: 100vh;
   }
 
   #root {
-    background: linear-gradient(135deg, #fdf2f8 0%, #fefcfb 50%, #fdf2f8 100%);
+    background: #fdf2f8 !important;
     min-height: 100vh;
   }
 
   /* Romantic background gradient */
   .romantic-gradient {
-    background: linear-gradient(135deg, #fdf2f8 0%, #fefcfb 50%, #fdf2f8 100%) !important;
+    background: #fdf2f8 !important;
     min-height: 100vh;
   }
 
@@ -146,8 +144,12 @@
 
   /* Mobile optimizations */
   @media (max-width: 768px) {
-    body {
-      background-attachment: scroll;
+    html, body, #root {
+      background: #fdf2f8 !important;
+    }
+    
+    .romantic-gradient {
+      background: #fdf2f8 !important;
     }
   }
 }

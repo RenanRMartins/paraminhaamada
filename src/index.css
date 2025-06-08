@@ -90,27 +90,31 @@
 @layer base {
   * {
     @apply border-border;
+    -webkit-tap-highlight-color: transparent;
   }
 
   html {
-    background: #fdf2f8 !important;
+    background-color: #fdf2f8 !important;
     min-height: 100vh;
   }
 
   body {
     @apply bg-background text-foreground font-inter;
-    background: #fdf2f8 !important;
+    background-color: #fdf2f8 !important;
     min-height: 100vh;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   #root {
-    background: #fdf2f8 !important;
+    background-color: #fdf2f8 !important;
     min-height: 100vh;
   }
 
   /* Romantic background gradient */
   .romantic-gradient {
-    background: #fdf2f8 !important;
+    background-color: #fdf2f8 !important;
     min-height: 100vh;
   }
 
@@ -145,10 +149,29 @@
   /* Mobile optimizations */
   @media (max-width: 768px) {
     html, body, #root {
+      background-color: #fdf2f8 !important;
       background: #fdf2f8 !important;
     }
     
     .romantic-gradient {
+      background-color: #fdf2f8 !important;
+      background: #fdf2f8 !important;
+    }
+
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+
+  /* iOS specific fixes */
+  @supports (-webkit-touch-callout: none) {
+    html, body, #root {
+      background-color: #fdf2f8 !important;
+      background: #fdf2f8 !important;
+    }
+    
+    .romantic-gradient {
+      background-color: #fdf2f8 !important;
       background: #fdf2f8 !important;
     }
   }

@@ -28,7 +28,7 @@ Saber que você me escolheu para caminhar ao seu lado é algo que ainda me emoci
 Te amo mais do que posso explicar. Obrigado por ser você, por ser minha.
 
 Feliz Dia dos Namorados, meu amor. ❤️`;
-  const relationshipStart = '2025-05-18';
+  const relationshipStart = '2025-05-19';
   
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
     years: 0,

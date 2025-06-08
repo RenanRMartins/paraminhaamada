@@ -1,11 +1,15 @@
 
 import { useState, useRef } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Music, Play, Pause, Volume2 } from 'lucide-react';
+import { Music, Play, Pause, Volume2, ExternalLink } from 'lucide-react';
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const openYouTube = () => {
+    window.open('https://www.youtube.com/watch?v=tep9uGsVzK4', '_blank');
+  };
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -13,9 +17,10 @@ const MusicPlayer = () => {
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
-        // Para iOS, precisamos de uma interação do usuário para tocar áudio
+        // Tentativa de tocar o áudio, mas como é um link do YouTube, vamos abrir o link
         audioRef.current.play().catch(error => {
-          console.log('Erro ao reproduzir áudio:', error);
+          console.log('Erro ao reproduzir áudio, abrindo YouTube:', error);
+          openYouTube();
         });
         setIsPlaying(true);
       }
@@ -24,12 +29,6 @@ const MusicPlayer = () => {
 
   const handleAudioEnded = () => {
     setIsPlaying(false);
-    // Loop automático
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-      setIsPlaying(true);
-    }
   };
 
   return (
@@ -58,27 +57,33 @@ const MusicPlayer = () => {
                   onEnded={handleAudioEnded}
                   className="hidden"
                 >
-                  <source src="https://www.soundjay.com/misc/sounds/magical_forest.mp3" type="audio/mpeg" />
+                  <source src="https://www.youtube.com/watch?v=tep9uGsVzK4" type="audio/mpeg" />
                   Seu navegador não suporta áudio HTML5.
                 </audio>
                 
-                <div className="flex items-center justify-center gap-3 md:gap-4">
-                  <button
-                    onClick={toggleMusic}
-                    className="bg-romantic-rose hover:bg-romantic-red text-white p-3 md:p-4 rounded-full transition-colors shadow-lg hover:shadow-xl touch-manipulation"
-                    style={{ WebkitTapHighlightColor: 'transparent' }}
-                  >
-                    {isPlaying ? (
-                      <Pause size={20} />
-                    ) : (
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4">
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={toggleMusic}
+                      className="bg-romantic-rose hover:bg-romantic-red text-white p-3 md:p-4 rounded-full transition-colors shadow-lg hover:shadow-xl touch-manipulation"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
                       <Play size={20} />
-                    )}
-                  </button>
+                    </button>
+                    
+                    <button
+                      onClick={openYouTube}
+                      className="bg-romantic-gold hover:bg-romantic-gold/80 text-white p-3 md:p-4 rounded-full transition-colors shadow-lg hover:shadow-xl touch-manipulation flex items-center gap-2"
+                      style={{ WebkitTapHighlightColor: 'transparent' }}
+                    >
+                      <ExternalLink size={16} />
+                    </button>
+                  </div>
                   
                   <div className="flex items-center gap-2 text-romantic-text">
                     <Volume2 size={16} />
-                    <span className="text-xs md:text-sm">
-                      {isPlaying ? 'Tocando...' : 'Toque para ouvir'}
+                    <span className="text-xs md:text-sm text-center">
+                      Toque para ouvir no YouTube
                     </span>
                   </div>
                 </div>
